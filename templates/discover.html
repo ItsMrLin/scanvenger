@@ -22,7 +22,7 @@
         padding:0;
       }
 
-      .sizer {
+/*      .sizer {
         position: absolute;
         visibility: hidden;
         left: -10000px;
@@ -34,7 +34,7 @@
         left: 0px;
         top: 0px;
         background-color: SteelBlue;
-      }
+      }*/
 
     </style>
 
@@ -306,38 +306,18 @@
         var deferred = featureLayer.selectFeatures(query,
           FeatureLayer.SELECTION_NEW);
         if (deferred.results[0][0].length != 0){
-          var attrs = deferred.results[0][0][0]["attributes"];
+           attrs = deferred.results[0][0][0]["attributes"];
         }
         map.infoWindow.setFeatures([deferred]);
         map.infoWindow.show(event.mapPoint);
-        if (!($("#popupTitle").length)) {
-          var title = document.createElement("div");
-          var popupBody = document.createElement("div");
-          var selection = document.createElement("div");
-          title.id = "popupTitle";
-          title.position = "relative"
-          title.innerHTML = "adasdas";
-          popupBody.id = "popupBody";
-          popupBody.position = "relative"
-          popupBody.innerHTML = "fsad";
-          selection.id = "selection";
-          selection.position = "relative"
-          selection.innerHTML = "qwe";
-          $(".esriPopupWrapper").prepend(selection);
-          $(".esriPopupWrapper").prepend(popupBody);
-          $(".esriPopupWrapper").prepend(title);
+        if (deferred.results[0][0].length != 0){
+          $('.contentPane').append('<div>' + 'Dollar/Hour: ' + Math.round(attrs['Dollar/Hour'] * 1000) / 1000 + '</div>');
+          $('.contentPane').append('<div>' + 'Estimated Travel Time: ' + Math.round(attrs['Estimated Travel Time']) + " min" + '</div>');
         }
-
       });
       map.on("zoom-end", function (event) {
-        heatmapRenderer.blurRadius = 20 - 1.5*Math.log(15 - map.getZoom());
+        heatmapRenderer.blurRadius = 10 + map.getZoom();
         heatmapRenderer.maxPixelIntensity = 300 + 1000*(15 - map.getZoom());
-        // array.forEach(featureLayer.graphics, function (d) {
-        //   if (map.extent.contains(d.geometry)) {
-        //     d.attributes.Magnitude = d.attributes.originalScore / (15 - map.getZoom());
-        //   };
-        //   console.log(map)
-        // });
       });
 
       function requestFailed(error) {
