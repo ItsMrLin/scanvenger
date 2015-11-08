@@ -18,7 +18,7 @@ def discover():
 	page = {
 		'title':'Discover',
 		'nav_title': 'Discover',
-		'prev_page': '/picker-home'
+		'prev_page': '/'
 	}
 
 	latitude = request.args.get('latitude')
@@ -46,7 +46,7 @@ def center_transactions():
     }
     return render_template('center-transactions.html', page=page)
 
-@app.route('/center-home')
+@app.route('/center-home', methods=['GET', 'POST'])
 def center_home():
     page = {
         'title':'Center Home',
