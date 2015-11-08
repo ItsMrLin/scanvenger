@@ -3,6 +3,11 @@
 	font-family: 'Nunito', sans-serif;
 }
 
+body {
+	height: 100vh;
+	overflow: hidden;
+}
+
 .jumbotron {
 	background-color: #81B9C3;
 	margin-left: auto;
