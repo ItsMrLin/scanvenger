@@ -302,7 +302,7 @@
       //associate the features with the popup on click
       map.on("click", function (event) {
         var query = new Query();
-        query.geometry = pointToExtent(map, event.mapPoint, 10);
+        query.geometry = pointToExtent(map, event.mapPoint, 30);
         var deferred = featureLayer.selectFeatures(query,
           FeatureLayer.SELECTION_NEW);
         if (deferred.results[0][0].length != 0){
