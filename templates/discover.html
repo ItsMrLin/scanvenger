@@ -24,8 +24,10 @@
 
       .sizer {
         visibility: hidden;
+        left: -10000px;
+        bottom: -10000px;
       }
-      
+
     </style>
 
     <script>var dojoConfig = { parseOnLoad: true };</script>
@@ -208,8 +210,10 @@
         var minLongitude = 10000,
           maxLongitude = -10000;
           minLatitude = 10000,
-          maxLatitude = -10000;
-        array.forEach(response.data, function(item) {
+          maxLatitude = -10000,
+          maxscore = -10000;
+        for (var i = 0; i < response.data.length; i++) {
+          item = response.data[i];
           var newitem = {};
           newitem.latitude = item.latitude
           newitem.longitude = item.longitude
@@ -226,17 +230,28 @@
           if (item.longitude > maxLongitude) {
             maxLongitude = item.longitude;
           }
+          if (item.score > maxscore) {
+            maxscore = item.score;
+          }
+        };
+
+        for (var i = 0; i < response.data.length; i++) {
+          item = response.data[i];
+          var newitem = {};
+          newitem.latitude = item.latitude
+          newitem.longitude = item.longitude
+          newitem.link = item.link
           var attr = {};
           attr["Dollar/Hour"] = item.dollar_per_hour;
           attr["Estimated Travel Time"] = item.estimated_travel_time;
-          attr["Magnitude"] = item.score * 20;
+          attr["Magnitude"] = item.score / maxscore * 10;
 
           var geometry = new Point(newitem);
 
           var graphic = new Graphic(geometry);
           graphic.setAttributes(attr);
           features.push(graphic);
-        });
+        };
         /*
         var longitudes = features.map(function(e) {return e.geometry.x;});
         var latitudes = features.map(function(e) {return e.geometry.y;});
@@ -253,13 +268,12 @@
         map.setExtent(extent);
         setTimeout(function() {featureLayer.applyEdits(features, null, null);}, 1000);
 
-                //associate the features with the popup on click
+        //associate the features with the popup on click
         map.on("click", function (event) {
           var query = new Query();
           query.geometry = pointToExtent(map, event.mapPoint, 10);
           var deferred = featureLayer.selectFeatures(query,
             FeatureLayer.SELECTION_NEW);
-          console.log(deferred.results[0][0])
           if (deferred.results[0][0].length != 0){
             var attrs = deferred.results[0][0][0]["attributes"];
           }
