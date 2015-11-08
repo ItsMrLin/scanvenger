@@ -50,10 +50,6 @@ body {
 	margin-top: 12px;
 }
 
-.landing-row {
-	margin-bottom: 22px;
-}
-
 /** Nav bar **/
 
 .navbar {
@@ -90,7 +86,6 @@ body {
 	display: block;
 }
 
-
 .esriPopupWrapper {
 	width: 320px;
 	height: 230px;
@@ -117,7 +112,7 @@ body {
 
 }
 
-.sizer content{
+.sizer.content{
 	width: 320px;
 	height: 190px;
 	background-color: gray;
@@ -148,7 +143,47 @@ body {
 	visibility: hidden;
 }
 
-.action zoomTo {
+.action.zoomTo {
     left: -10000px;
     visibility: hidden;
+}
+
+/** Login **/
+.login-input {
+    background-color: #F1F2F2;
+    border-width: 0;
+    width: 260px;
+    height: 47px;
+    margin-bottom: 34.5px;
+    margin-left: 15px;
+}
+
+.login-container {
+	background-color: white;
+	max-width: 100%;
+    padding-left: 56px;
+    padding-right: 56px;
+    padding-top: 75px;
+    padding-bottom: 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    width: 500px;
+}
+
+.login-button {
+	background-color: #F26A59;
+	color: #F1F2F2;
+	border-width: 0px;
+	border-radius: 5px;
+	height: 47px;
+	width: 195px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.login-row {
+	color: #31526E;
+	margin-bottom: 20px;
+	text-align: center;
 }

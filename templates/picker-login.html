@@ -1,15 +1,16 @@
 <html>
-<head>
-	<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-</head>
+{%include 'header.html'%}
+<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
+
 <body>
+	{%include 'nav.html'%}
+
 	{% if is_post %}
 		<script type="text/javascript">
 		var ref = new Firebase("https://scanvenger.firebaseio.com");
 		ref.authWithPassword({
-			email    : "<?php echo $_POST['username']; ?>",
-			password : "<?php echo $_POST['password']; ?>"
+			email    : "{{data.username}}",
+			password : "{{data.password}}"
 		}, function(error, authData) {
 			if (error) {
 				console.log("Login Failed!", error);
@@ -23,17 +24,26 @@
 		});
 		</script>
 	{% else %}
-	<form action="#" method="post">
-		Username:
-		<br>
-		<input type="text" name="username" value="">
-		<br>
-		Password:
-		<br>
-		<input type="text" name="password" value="">
-		<br><br>
-		<input type="submit" value="Submit">
-	</form>
+	<div class="jumbotron vertical-center">
+  	  <div class="container login-container">
+  	  	<form action="#" method="post">
+			<div class="row login-row">
+  	  	  		Username
+  	  	  		<input type="text" class="login-input" name="username" value="">
+	  		</div>
+  	  		<div class="row login-row">
+  	  	  		Password
+  	  	  		<input type="text" class="login-input" name="password" value="">
+  	  		</div>
+  		  	<div class="row login-row">
+				<input type="submit" class="login-button" value="Login">
+			</div>
+			<div class="row login-row">
+				<a href="picker-signup">New Account</a>
+			</div>
+		</form>
+      </div>
+    </div>
 	{% endif %}
 </body>
 </html>
