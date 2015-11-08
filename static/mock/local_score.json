@@ -4,21 +4,21 @@
 			"latitude": 33.77,
 			"longitude": -84.39,
 			"score": 0.65,
-			"dollor_per_hour": 10,
+			"dollar_per_hour": 10,
 			"estimated_travel_time": 30
 		},
 		{
 			"latitude": 33.771,
 			"longitude": -84.391,
 			"score": 0.20,
-			"dollor_per_hour": 5,
+			"dollar_per_hour": 5,
 			"estimated_travel_time": 10
 		},
 		{
 			"latitude": 33.772,
 			"longitude": -84.389,
 			"score": 0.15,
-			"dollor_per_hour": 3,
+			"dollar_per_hour": 3,
 			"estimated_travel_time": 20
 		}
 	]
