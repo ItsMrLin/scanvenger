@@ -17,17 +17,17 @@ def discover():
 def saving():
     return render_template('saving.html')
 
-@app.route('/api/get_score')
-def get_score():
-	latitude = request.args.get('latitude')
-	longitude = request.args.get('longitude')
-	return helper.get_static("mock/local_score.json")
-
 # @app.route('/api/get_score')
 # def get_score():
 # 	latitude = request.args.get('latitude')
 # 	longitude = request.args.get('longitude')
-# 	return model.get_score(latitude, longitude)
+# 	return helper.get_static("mock/local_score.json")
+
+@app.route('/api/get_score')
+def get_score():
+	latitude = float(request.args.get('latitude'))
+	longitude = float(request.args.get('longitude'))
+	return model.get_score(latitude, longitude)
 
 
 if __name__ == '__main__':
