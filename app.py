@@ -51,10 +51,15 @@ def picker_home():
 
 @app.route('/picker-login', methods=['GET', 'POST'])
 def picker_login():
+	page = {
+		'title':'Picker Log In',
+		'nav_title': 'Log In',
+		'prev_page': '/picker-home'
+	}
 	if request.method == 'POST':
-		return render_template('picker-login.html', is_post = True)
+		return render_template('picker-login.html', page=page, is_post = True)
 	else:
-		return render_template('picker-login.html', is_post = False)
+		return render_template('picker-login.html', page=page, is_post = False)
 
 @app.route('/picker-signup', methods=['GET', 'POST'])
 def picker_signup():
