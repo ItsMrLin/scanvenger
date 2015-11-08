@@ -70,10 +70,15 @@ def picker_login():
 
 @app.route('/picker-signup', methods=['GET', 'POST'])
 def picker_signup():
+	page = {
+		'title':'Sign Up',
+		'nav_title': 'Sign Up',
+		'prev_page': '/picker-login',
+	}
 	if request.method == 'POST':
-		return render_template('picker-signup.html', is_post = True)
+		return render_template('picker-signup.html', is_post = True, page=page, data=request.form)
 	else:
-		return render_template('picker-signup.html', is_post = False)
+		return render_template('picker-signup.html', is_post = False, page=page)
 
 
 # @app.route('/api/get_score')
