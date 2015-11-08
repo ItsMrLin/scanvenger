@@ -86,6 +86,73 @@ body {
 	display: block;
 }
 
+.esriPopupWrapper {
+	width: 320px;
+	height: 230px;
+	border-radius: 3px;
+	background-color: rgba(0,0,0, 0.4);
+}
+
+.sizer {
+	width: 100% !important;
+	height: 20px;
+	background-color: rgba(0,0,0, 0);
+}
+.titlePane {
+	width: 320px;
+	background-color: gray;
+}
+
+.titlePane .spinner,
+.titlePane .prev,
+.titlePane .next,
+.titlePane .maximize{
+	display: none!important;
+}
+.pointer, 
+.outerPointer.right,
+.outerPointer.left,
+.outerPointer {
+	background-color: rgba(0,0,0,0.4)!important;
+	display: none;
+}
+.sizer.content{
+	width: 320px;
+	height: 190px;
+	background-color: rgba(0,0,0,0);
+}
+
+.contentPane {
+	width: 320px;
+    vertical-align: middle;
+    height: 190px;
+    background-color: rgba(0,0,0,0)!important;
+    padding: 5px!important;
+}
+
+.discoverText {
+	text-align: center;
+	height: 24px;
+	font-size: 20px!important;
+	color: white; 
+	margin: 2px;
+}
+
+.esriPopup .actionsPane {
+	visibility: hidden;
+    background-color: rgba(0,0,0,0)!important;
+    display: none!important;
+}
+
+.actionList {
+	visibility: hidden;
+}
+
+.action.zoomTo {
+    left: -10000px;
+    visibility: hidden;
+}
+
 /** Login **/
 .login-input {
     background-color: #F1F2F2;
@@ -175,4 +242,8 @@ body {
 .transactions-container {
 	width: 500px;
 	font-size: 20px;	
+
+.login-button.discover {
+	margin-top: 17px!important;
+
 }

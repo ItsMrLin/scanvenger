@@ -13,7 +13,7 @@ zip_to_population = helper.load_csv_as_dict(census_data_path)
 PLACE_TYPE = [171, 445]
 
 DRINKS_SOLD_PER_STORE_PER_DAY = 650
-SINGLE_DRINK_PRICE = 40.0 / 700.0
+SINGLE_DRINK_PRICE = 40.0 / 650.0
 DAILY_ACTIVE_HOUR = 8.0
 
 DEFAULT_RADIUS = 1000
