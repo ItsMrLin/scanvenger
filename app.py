@@ -1,7 +1,7 @@
 import requests
 import os
 from flask import Flask, request, send_from_directory, url_for, render_template
-import algo, helper
+import model, helper
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 
@@ -29,7 +29,7 @@ def get_score():
 def get_score1():
 	latitude = request.args.get('latitude')
 	longitude = request.args.get('longitude')
-	return algo.get_score(latitude, longitude)
+	return model.get_score(latitude, longitude)
 
 
 if __name__ == '__main__':
