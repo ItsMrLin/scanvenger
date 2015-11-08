@@ -1,20 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-  {% include 'header.html' %}
-  <body>
-    {% include 'nav.html' %}
+<html>
+{%include 'header.html'%}
+<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
 
-    <div class="jumbotron vertical-center">
-  	  <div class="container">
-  	  	<div class="row landing-row">
-  	  	  <img class="landing-icon" src="img/factoryIcon.png">
-  	  	  <a href="center-login"><button class="button landing-button">Recycling Center</button></a>
-	  	</div>
-  	  	<div class="row landing-row">
-  	  	  <img class="landing-icon" src="img/PickerIcon.png">
-  	  	  <a href="picker-login"><button class="button landing-button">Picker</button></a>
-  	  	</div>
+<body>
+  {%include 'nav.html'%}
+
+  {% if is_post %}
+    <script type="text/javascript">
+    var ref = new Firebase("https://scanvenger.firebaseio.com");
+    ref.authWithPassword({
+      email    : "{{data.username}}",
+      password : "{{data.password}}"
+    }, function(error, authData) {
+      if (error) {
+        alert(error);
+        window.location = "#";
+      } else {
+        console.log("Authenticated successfully with payload:", authData.uid);
+        var form = $('<form action="picker-home" method="post">' +
+          '<input type="text" name="id" value="' + authData.uid + '"></form>');
+        $('body').append(form);
+        form.submit();
+      }
+    });
+    </script>
+  {% else %}
+  <div class="jumbotron vertical-center">
+      <div class="container login-container">
+        <form action="#" method="post">
+      <div class="row login-row">
+              Center Name
+              <input type="text" class="login-input" name="username" value="">
+        </div>
+          <div class="row login-row">
+              Password
+              <input type="password" class="login-input" name="password" value="">
+          </div>
+          <div class="row login-row">
+        <input type="submit" class="login-button" value="Login">
+      </div>
+      <div class="row login-row">
+        <a href="picker-signup">New Account</a>
+      </div>
+    </form>
       </div>
     </div>
-  </body>
+  {% endif %}
+</body>
 </html>

@@ -1,13 +1,15 @@
 <html>
-<head>
-	<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-</head>
-<body>
-	Welcome!
-	<div id="content">
-	</div>
+{%include 'header.html'%}
+<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
 
+<body>
+	{%include 'nav.html'%}
+	<div class="jumbotron vertical-center">
+  	  <div class="container picker-container">
+	  	  <div id="picker-label">My Total Savings:</div>
+	  	  <div id="picker-balance"></div>
+  	  </div>
+	</div>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		var ref = new Firebase("https://scanvenger.firebaseio.com/users/{{data.id}}/customer_id");
@@ -19,7 +21,7 @@
 				url: "http://api.reimaginebanking.com/customers/"+id+"/accounts?key=dd10dc4f2037e2a8284c21c4a7f37d1b",
 				contentType: 'application/json',
 				success: function(results){
-					var content = '<table>';
+					/*var content = '<table>';
 					for(var i = 0; i < results.length; i++) {
 						content += '<tr>';
 						content += '<td>'+results[i]._id+'</td>';
@@ -29,7 +31,10 @@
 						content += '</tr>';
 					}
 					content += '</table>';
-					$('#content').html(content);
+					$('#content').html(content);*/
+
+					$('#picker-balance').html('$'+results[0].balance);
+
 				},
 				error: function(results) {
 					console.log(JSON.stringify(results));

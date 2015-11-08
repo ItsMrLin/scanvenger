@@ -13,10 +13,11 @@
 			password : "{{data.password}}"
 		}, function(error, authData) {
 			if (error) {
-				console.log("Login Failed!", error);
+				alert(error);
+				window.location = "#";
 			} else {
 				console.log("Authenticated successfully with payload:", authData.uid);
-				var form = $('<form action="picker-home.php" method="post">' +
+				var form = $('<form action="picker-home" method="post">' +
 					'<input type="text" name="id" value="' + authData.uid + '"></form>');
 				$('body').append(form);
 				form.submit();
@@ -33,7 +34,7 @@
 	  		</div>
   	  		<div class="row login-row">
   	  	  		Password
-  	  	  		<input type="text" class="login-input" name="password" value="">
+  	  	  		<input type="password" class="login-input" name="password" value="">
   	  		</div>
   		  	<div class="row login-row">
 				<input type="submit" class="login-button" value="Login">

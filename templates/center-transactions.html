@@ -1,0 +1,62 @@
+<html>
+{%include 'header.html'%}
+<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
+
+<body>
+	{%include 'nav.html'%}
+  	<div class="jumbotron vertical-center">
+      <div class="container transactions-container">
+        <form action="#" method="post">
+      <div class="row login-row">
+		Awesome Recycler
+		<input type="text" id="username" class="login-input" name="username" value="">
+	  </div>
+      <div class="row login-row">
+		Number of Bottles
+		<input type="password" class="login-input" name="password" value="">
+      </div>
+      <div class="row login-row">
+		Current rate: $0.11 each
+      </div>
+      <div class="row login-row">
+		TOTAL: $<div id="total">0.00</div>
+      </div>
+      <div class="row login-row">
+        <input type="submit" id="send" class="login-button" value="Send">
+      </div>
+    </form>
+
+    <script type="text/javascript">
+	$('#send').click(function() {
+		var ref = new Firebase("https://scanvenger.firebaseio.com/users/"+$('#username').val()+"/customer_id");
+		ref.once("value", function(data) {
+			var id = data.A.B;
+
+			$('#send').click(function() {
+				var date = new Date();
+				var transaction_date = date.getFullYear()+"."+date.getMonth()+"."+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+				$.ajax({
+					method: 'POST',
+					url: 'http://api.reimaginebanking.com/accounts/'+id+'/deposits?key=dd10dc4f2037e2a8284c21c4a7f37d1b',
+					dataType: 'json',
+					data: JSON.stringify({
+						"medium": "balance",
+						"transaction_date": transaction_date,
+						"amount": int($('total').val()),
+						"status": "completed"
+					}),
+					contentType: 'application/json',
+					success: function(results){
+						console.log(JSON.stringify(results));
+
+					},
+					error: function(results) {
+						console.log(results);
+					}
+				});	
+			});
+		});
+	});
+    </script>
+</body>
+</html>

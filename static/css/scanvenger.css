@@ -79,7 +79,7 @@ body {
 	font-size: 48px;
 	text-align: center;
 	height: 48px;
-	width: 250px;
+	width: 300px;
 	margin-top: 21px;
 	margin-left: auto;
 	margin-right: auto;
@@ -124,4 +124,55 @@ body {
 	color: #31526E;
 	margin-bottom: 20px;
 	text-align: center;
+}
+
+/** picker home **/
+.picker-container {
+	color: white;
+	text-align: center;
+}
+
+#picker-label {
+	font-size: 24px;
+}
+
+#picker-balance {
+	font-size: 72px;
+}
+
+/** center home */
+.center-button {
+	background-color: #31526E;
+	width: 470px;
+	height: 156px;
+	font-size: 36px;
+}
+
+.center-button img {
+	width: 80px;
+	margin-right: 20px;
+}
+
+#center-welcome {
+	font-size: 48px;
+	color: #31526E;
+	position: relative;
+	top: -100px;
+}
+
+.center-container {
+	text-align: center;
+}
+
+.center-container a {
+	color: #F26A59;
+}
+
+.center-container a:hover {
+	color: #F26A59;
+}
+
+.transactions-container {
+	width: 500px;
+	font-size: 20px;	
 }
