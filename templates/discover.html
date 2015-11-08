@@ -23,9 +23,17 @@
       }
 
       .sizer {
+        position: absolute;
         visibility: hidden;
         left: -10000px;
         bottom: -10000px;
+      }
+
+      #popupTitle {
+        position: relative;
+        left: 0px;
+        top: 0px;
+        background-color: SteelBlue;
       }
 
     </style>
@@ -95,7 +103,8 @@
           basemap: "gray",
           center: [-46.807, 32.553],
           zoom: 3,
-          infoWindow: popup
+          infoWindow: popup,
+          fadeOnZoom: true
         });
         //hide the popup if its outside the map's extent
         map.on("mouse-drag", function(evt) {
@@ -150,18 +159,20 @@
 
         var heatmapRenderer = new HeatmapRenderer({
           field: "Magnitude",
-          blurRadius: 13,
-          maxPixelIntensity: 150,
+          blurRadius: 25,
+          maxPixelIntensity: 350,
           minPixelIntensity: 0,
           colors: [
-            { ratio: 0, color: "rgba(200, 255, 0, 0)" },
-            { ratio: 0.2, color: "rgba(200, 220, 0, 0.5)" },
-            { ratio: 0.4, color: "rgba(200, 200, 0, 0.6)" },
-            { ratio: 0.6, color: "rgba(220, 160, 0, 0.7)"},
-            { ratio: 0.7, color: "rgba(250, 130, 0, 0.8)"},
-            { ratio: 0.8, color: "rgba(250, 60, 0, 0.8)"},
-            { ratio: 0.8, color: "rgba(250, 40, 0, 0.9)"},
-            { ratio: 0.99, color: "rgb(250, 0, 0)"}
+            { ratio: 0, color: "rgba(200, 255, 0, 0.1)" },
+            { ratio: 0.1, color: "rgba(200, 220, 0, 0.2)" },
+            { ratio: 0.2, color: "rgba(200, 200, 0, 0.3)" },
+            { ratio: 0.3, color: "rgba(210, 180, 0, 0.4)" },
+            { ratio: 0.4, color: "rgba(220, 160, 0, 0.5)"},
+            { ratio: 0.6, color: "rgba(235, 150, 0, 0.6)"},
+            { ratio: 0.75, color: "rgba(250, 130, 0, 0.7)"},
+            { ratio: 0.85, color: "rgba(250, 90, 0, 0.8)"},
+            { ratio: 0.95, color: "rgba(250, 40, 0, 0.9)"},
+            { ratio: 0.99, color: "rgba(250, 0, 0, 1)"}
           ]
         });
         /*
@@ -245,6 +256,7 @@
           attr["Dollar/Hour"] = item.dollar_per_hour;
           attr["Estimated Travel Time"] = item.estimated_travel_time;
           attr["Magnitude"] = item.score / maxscore * 10;
+          attr["originalScore"] = item.score / maxscore * 10;
 
           var geometry = new Point(newitem);
 
@@ -267,20 +279,47 @@
         });
         map.setExtent(extent);
         setTimeout(function() {featureLayer.applyEdits(features, null, null);}, 1000);
-
-        //associate the features with the popup on click
-        map.on("click", function (event) {
-          var query = new Query();
-          query.geometry = pointToExtent(map, event.mapPoint, 10);
-          var deferred = featureLayer.selectFeatures(query,
-            FeatureLayer.SELECTION_NEW);
-          if (deferred.results[0][0].length != 0){
-            var attrs = deferred.results[0][0][0]["attributes"];
-          }
-          map.infoWindow.setFeatures([deferred]);
-          map.infoWindow.show(event.mapPoint);
-        });
       }
+      //associate the features with the popup on click
+      map.on("click", function (event) {
+        var query = new Query();
+        query.geometry = pointToExtent(map, event.mapPoint, 10);
+        var deferred = featureLayer.selectFeatures(query,
+          FeatureLayer.SELECTION_NEW);
+        if (deferred.results[0][0].length != 0){
+          var attrs = deferred.results[0][0][0]["attributes"];
+        }
+        map.infoWindow.setFeatures([deferred]);
+        map.infoWindow.show(event.mapPoint);
+        if (!($("#popupTitle").length)) {
+          var title = document.createElement("div");
+          var popupBody = document.createElement("div");
+          var selection = document.createElement("div");
+          title.id = "popupTitle";
+          title.position = "relative"
+          title.innerHTML = "adasdas";
+          popupBody.id = "popupBody";
+          popupBody.position = "relative"
+          popupBody.innerHTML = "fsad";
+          selection.id = "selection";
+          selection.position = "relative"
+          selection.innerHTML = "qwe";
+          $(".esriPopupWrapper").prepend(selection);
+          $(".esriPopupWrapper").prepend(popupBody);
+          $(".esriPopupWrapper").prepend(title);
+        }
+
+      });
+      map.on("zoom-end", function (event) {
+        heatmapRenderer.blurRadius = 20 - 1.5*Math.log(15 - map.getZoom());
+        heatmapRenderer.maxPixelIntensity = 300 + 1000*(15 - map.getZoom());
+        // array.forEach(featureLayer.graphics, function (d) {
+        //   if (map.extent.contains(d.geometry)) {
+        //     d.attributes.Magnitude = d.attributes.originalScore / (15 - map.getZoom());
+        //   };
+        //   console.log(map)
+        // });
+      });
 
       function requestFailed(error) {
         console.log('failed');
