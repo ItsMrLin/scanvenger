@@ -13,7 +13,8 @@
 			password : "{{data.password}}"
 		}, function(error, authData) {
 			if (error) {
-				console.log("Login Failed!", error);
+				alert(error);
+				window.location = "#";
 			} else {
 				console.log("Authenticated successfully with payload:", authData.uid);
 				var form = $('<form action="picker-home" method="post">' +

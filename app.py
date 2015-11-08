@@ -37,9 +37,39 @@ def discover():
 
 	return render_template('discover.html', data=data, page=page)
 
+@app.route('/center-transactions')
+def center_transactions():
+    page = {
+        'title':'Center Transactions',
+        'nav_title': 'New Transaction',
+        'prev_page': '/'
+    }
+    return render_template('center-transactions.html', page=page)
+
 @app.route('/center-home')
 def center_home():
-    return render_template('center-home.html')
+    page = {
+        'title':'Center Home',
+        'nav_title': 'Home',
+        'prev_page': '/'
+    }
+    return render_template('center-home.html', page=page)
+
+@app.route('/center-login', methods=['GET', 'POST'])
+def center_login():
+	page = {
+		'title':'Center Log In',
+		'nav_title': 'Log In',
+		'prev_page': '/'
+	}
+	if request.method == 'POST':
+		data = {
+			'username': request.form['username'],
+			'password': request.form['password'],
+		}
+		return render_template('center-login.html', page=page, is_post = True, data = data)
+	else:
+		return render_template('center-login.html', page=page, is_post = False)
 
 @app.route('/nessie-demo')
 def nessie_demo():
@@ -56,17 +86,22 @@ def picker_select():
 
 @app.route('/picker-home', methods=['GET', 'POST'])
 def picker_home():
+	page = {
+		'title': 'Picker Home',
+		'nav_title': 'My Savings',
+		'prev_page': '/'
+	}
 	data = {}
 	if request.method == 'POST':
 		data['id'] = request.form['id']
-	return render_template('picker-home.html', data=data)
+	return render_template('picker-home.html', page=page, data=data)
 
 @app.route('/picker-login', methods=['GET', 'POST'])
 def picker_login():
 	page = {
 		'title':'Picker Log In',
 		'nav_title': 'Log In',
-		'prev_page': '/picker-home',
+		'prev_page': '/'
 	}
 	if request.method == 'POST':
 		data = {
