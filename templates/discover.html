@@ -21,6 +21,11 @@
       #map{ 
         padding:0;
       }
+
+      .sizer {
+        visibility: hidden;
+      }
+      
     </style>
 
     <script>var dojoConfig = { parseOnLoad: true };</script>
@@ -30,6 +35,8 @@
       var map;
       require([
         "esri/map",
+        "dojo/dom",
+        "dojo/dom-construct",
         "esri/layers/FeatureLayer",
         "esri/dijit/PopupTemplate",
         "esri/request",
@@ -38,9 +45,20 @@
         "dojo/on",
         "dojo/_base/array",
         "esri/renderers/HeatmapRenderer",
+        "esri/tasks/GeometryService",
+        "esri/tasks/query",
+        "esri/geometry/Extent",
+        "esri/dijit/InfoWindow",
+        "esri/dijit/Popup",
+
+      "esri/symbols/SimpleFillSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/Color",
         "dojo/domReady!"
       ], function(
         Map, 
+        dom,
+        domConstruct,
         FeatureLayer, 
         PopupTemplate,
         esriRequest,
@@ -48,17 +66,35 @@
         Graphic,
         on,
         array,
-        HeatmapRenderer
+        HeatmapRenderer,
+        GeometryService,
+        Query,
+        Extent,
+        InfoWindow,
+        Popup,
+        SimpleFillSymbol,
+        SimpleLineSymbol,
+        Color
       ) {
 
         var featureLayer;
 
+        // var infoWindow = new InfoWindow({
+        //   domNode: domConstruct.create("div", null, dom.byId("mapDiv"))
+        // });
+
+        var popup = new Popup({
+          fillSymbol: new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+            new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+              new Color([255, 0, 0]), 2), new Color([255, 255, 0, 0.25]))
+        }, domConstruct.create("div"));
+
         map = new Map("map", {
           basemap: "gray",
           center: [-46.807, 32.553],
-          zoom: 3
+          zoom: 3,
+          infoWindow: popup
         });
-
         //hide the popup if its outside the map's extent
         map.on("mouse-drag", function(evt) {
           if (map.infoWindow.isShowing) {
@@ -93,38 +129,21 @@
             "type": "esriFieldTypeString"
           }]
         };
-
-        //define a popup template
-        var popupTemplate = new PopupTemplate({
-          title: "Detailed Info",
-          fieldInfos: [
-            {
-              fieldName: "Dollar/Hour",
-              visible: true,
-              format: {
-                places: 0
-              }
-            },
-            {
-              fieldName: "Estimated Travel Time",
-              visible: true,
-              format: {
-                places: 0
-              }
-            }
-          ]
-        });
-
         //create a feature layer based on the feature collection
         featureLayer = new FeatureLayer(featureCollection, {
-          id: 'flickrLayer',
-          infoTemplate: popupTemplate
+          id: 'flickrLayer'
         });
 
-        //associate the features with the popup on click
-        featureLayer.on("click", function(evt) {
-          map.infoWindow.setFeatures([evt.graphic]);
-        });
+        function pointToExtent (map, point, toleranceInPixel) {
+          var pixelWidth = map.extent.getWidth() / map.width;
+          var toleranceInMapCoords = toleranceInPixel * pixelWidth;
+          return new Extent(point.x - toleranceInMapCoords,
+                            point.y - toleranceInMapCoords,
+                            point.x + toleranceInMapCoords,
+                            point.y + toleranceInMapCoords,
+                            map.spatialReference);
+        }
+
         
 
         var heatmapRenderer = new HeatmapRenderer({
@@ -233,6 +252,20 @@
         });
         map.setExtent(extent);
         setTimeout(function() {featureLayer.applyEdits(features, null, null);}, 1000);
+
+                //associate the features with the popup on click
+        map.on("click", function (event) {
+          var query = new Query();
+          query.geometry = pointToExtent(map, event.mapPoint, 10);
+          var deferred = featureLayer.selectFeatures(query,
+            FeatureLayer.SELECTION_NEW);
+          console.log(deferred.results[0][0])
+          if (deferred.results[0][0].length != 0){
+            var attrs = deferred.results[0][0][0]["attributes"];
+          }
+          map.infoWindow.setFeatures([deferred]);
+          map.infoWindow.show(event.mapPoint);
+        });
       }
 
       function requestFailed(error) {
