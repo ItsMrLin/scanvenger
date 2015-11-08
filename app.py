@@ -45,9 +45,12 @@ def center_home():
 def nessie_demo():
     return render_template('nessie-demo.html')
 
-@app.route('/picker-home')
+@app.route('/picker-home', methods=['GET', 'POST'])
 def picker_home():
-    return render_template('picker-home.html')
+	data = {}
+	if request.method == 'POST':
+		data['id'] = request.form['id']
+	return render_template('picker-home.html', data=data)
 
 @app.route('/picker-login', methods=['GET', 'POST'])
 def picker_login():

@@ -10,7 +10,7 @@
 
 	<script type="text/javascript">
 	$(document).ready(function() {
-		var ref = new Firebase("https://scanvenger.firebaseio.com/users/<?php echo $_POST['id']; ?>/customer_id");
+		var ref = new Firebase("https://scanvenger.firebaseio.com/users/{{data.id}}/customer_id");
 		ref.once("value", function(data) {
 			var id = data.A.B;
 
