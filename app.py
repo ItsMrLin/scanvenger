@@ -26,11 +26,6 @@ def discover():
 
 	return render_template('discover.html', data=data)
 
-
-@app.route('/saving')
-def saving():
-    return render_template('saving.html')
-
 @app.route('/center-home')
 def center_home():
     return render_template('center-home.html')
