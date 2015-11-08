@@ -46,8 +46,8 @@ def get_score(latitude, longitude, size_n = 10, influence_range = 1000):
 	maxLong = -9999
 	for place_raw in places_raw:
 		new_place = {}
-		new_place['latitude'] = int(place_raw['latitude'])
-		new_place['longitude'] = int(place_raw['longitude'])
+		new_place['latitude'] = float(place_raw['latitude'])
+		new_place['longitude'] = float(place_raw['longitude'])
 		new_place['zipcode'] = int(place_raw['postcode'])
 		print new_place
 		places.append(new_place)
