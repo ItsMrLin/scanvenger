@@ -6,10 +6,21 @@ app = Flask(__name__, static_folder='static', static_url_path='')
 
 @app.route('/')
 def index():
-    return render_template('index.html', page={'title':'sCANvenger'})
+	page = {
+		'title':'sCANvenger',
+		# 'nav_title': 'Welcome!',
+		# 'prev_page': 'index.html'
+	}
+	return render_template('index.html', page=page)
 
 @app.route('/discover')
 def discover():
+	page = {
+		'title':'Discover',
+		'nav_title': 'Discover',
+		'prev_page': '/picker-home'
+	}
+
 	latitude = request.args.get('latitude')
 	longitude = request.args.get('longitude')
 
@@ -24,7 +35,7 @@ def discover():
 		score_json = model.get_score(latitude, longitude)
 		data['score_json'] = score_json
 
-	return render_template('discover.html', data=data)
+	return render_template('discover.html', data=data, page=page)
 
 @app.route('/center-home')
 def center_home():
