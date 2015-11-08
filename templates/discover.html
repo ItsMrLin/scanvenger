@@ -79,26 +79,40 @@
         };
         featureCollection.layerDefinition = {
           "geometryType": "esriGeometryPoint",
-          "objectIdField": "ObjectID",
           "fields": [{
-            "name": "ObjectID",
-            "alias": "ObjectID",
-            "type": "esriFieldTypeOID"
-          }, {
-            "name": "description",
-            "alias": "Description",
+            "name": "Magnitude",
+            "alias": "Magnitude",
             "type": "esriFieldTypeString"
           }, {
-            "name": "title",
-            "alias": "Title",
+            "name": "dollar_per_hour",
+            "alias": "Dollar/Hour",
+            "type": "esriFieldTypeString"
+          }, {
+            "name": "estimated_travel_time",
+            "alias": "Estimated Travel Time",
             "type": "esriFieldTypeString"
           }]
         };
 
         //define a popup template
         var popupTemplate = new PopupTemplate({
-          title: "{title}",
-          description: "{description}"
+          title: "Detailed Info",
+          fieldInfos: [
+            {
+              fieldName: "Dollar/Hour",
+              visible: true,
+              format: {
+                places: 0
+              }
+            },
+            {
+              fieldName: "Estimated Travel Time",
+              visible: true,
+              format: {
+                places: 0
+              }
+            }
+          ]
         });
 
         //create a feature layer based on the feature collection
@@ -172,8 +186,6 @@
       function requestSucceeded(response) {
         //loop through the items and add to the feature layer
         var features = [];
-        
-
         var minLongitude = 10000,
           maxLongitude = -10000;
           minLatitude = 10000,
@@ -196,8 +208,8 @@
             maxLongitude = item.longitude;
           }
           var attr = {};
-          attr["description"] = item.description;
-          attr["title"] = item.title ? item.title : "Flickr Photo";
+          attr["Dollar/Hour"] = item.dollar_per_hour;
+          attr["Estimated Travel Time"] = item.estimated_travel_time;
           attr["Magnitude"] = item.score * 20;
 
           var geometry = new Point(newitem);
