@@ -6,7 +6,12 @@ app = Flask(__name__, static_folder='static', static_url_path='')
 
 @app.route('/')
 def index():
-    return render_template('index.html', page={'title':'sCANvenger'})
+	page = {
+		'title':'sCANvenger',
+		# 'nav_title': 'Welcome!',
+		# 'prev_page': 'index.html'
+	}
+	return render_template('index.html', page=page)
 
 @app.route('/discover')
 def discover():

@@ -1,3 +1,9 @@
+/*-----------global------------*/
+* {
+	font-family: 'Nunito', sans-serif;
+	color: white;
+}
+
 .navbar {
 	border-radius: 0px;
 	height: 90px;
@@ -16,10 +22,18 @@
 
 .navbar-brand-logo {
 	width: 90px;
+	position: absolute;
+	left: 0;
+}
+
+.navbar-back-button {
+	left: 30px;
 }
 
 .navbar-logo {
+	font-size: 48px;
 	height: 48px;
+	width: 250px;
 	margin-top: 21px;
 	margin-left: auto;
 	margin-right: auto;

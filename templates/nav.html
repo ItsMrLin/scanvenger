@@ -2,12 +2,19 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img class="navbar-brand-logo" alt="Brand" src="hackducklogo.png">
-      </a>
+    	<a class="navbar-brand" href="#">
+			{% if page.prev_page is defined %}
+	        	<img class="navbar-brand-logo navbar-back-button" alt="Brand" src="img/back.png">
+			{% else %}
+	        	<img class="navbar-brand-logo" alt="Brand" src="img/hackducklogo.png">
+	        {% endif %}
+    	</a>
     </div>
 
-    <img class="navbar-logo" alt="Brand" src="scanvengerlogo.png">
-
+    {% if page.nav_title is defined %}
+    	<div class="navbar-logo">{{page.nav_title}}</div>
+    {% else %}
+    	<img class="navbar-logo" alt="Brand" src="img/scanvengerlogo.png">
+    {% endif %}
   </div><!-- /.container-fluid -->
 </nav>
