@@ -83,3 +83,54 @@
 	margin-right: auto;
 	display: block;
 }
+
+
+.esriPopupWrapper {
+	width: 320px;
+	height: 230px;
+	border-radius: 3px;
+	background-color: rgba(0,0,0, 0.2);
+}
+
+.sizer {
+	width: 320px;
+	height: 20px;
+	background-color: rgba(0,0,0, 0);
+}
+.titlePane {
+	width: 320px;
+	background-color: gray;
+}
+.sizer content{
+	width: 320px;
+	height: 190px;
+	background-color: gray;
+}
+
+.contentPane {
+	width: 320px;
+    vertical-align: middle;
+    height: 190px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.discoverText {
+	text-align: middle;
+	height: 30px;
+	font-size: 24px;
+	color: white; 
+}
+
+.actionPane {
+	visibility: hidden;
+    background-color: rgba(0,0,0,0);
+}
+
+.actionList {
+	visibility: hidden;
+}
+
+.action zoomTo {
+    left: -10000px;
+    visibility: hidden;
+}

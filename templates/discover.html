@@ -315,12 +315,17 @@
         map.infoWindow.setFeatures([deferred]);
         map.infoWindow.show(event.mapPoint);
         titlePane = popDom.childNodes[0].childNodes[0].firstChild;
-        titlePane.childNodes[1].innerHTML = "Detailed Info";
+        titlePane.childNodes[1].innerHTML = "";
         if (deferred.results[0][0].length != 0){
-          $('.contentPane').append('<div>' + 'Dollar/Hour: ' + Math.round(attrs['Dollar/Hour'] * 1000) / 1000 + '</div>');
-          $('.contentPane').append('<div>' + 'Estimated Travel Time: ' + Math.round(attrs['Estimated Travel Time']) + " min" + '</div>');
+          $('.contentPane').append('<div class=discoverText>' + 'Dollar/Hour: ' +  '</div>');
+          $('.contentPane').append('<div class=discoverText>' + Math.round(attrs['Dollar/Hour'] * 1000) / 1000 + '</div>');
+          $('.contentPane').append('<div class=discoverText>' + 'Estimated Travel Time: ' + '</div>');
+          $('.contentPane').append('<div class=discoverText>' + Math.round(attrs['Estimated Travel Time']) + " min" +'</div>');
           console.log(popDom)
-          var actionList = popDom.childNodes[0].childNodes[2].firstChild.firstChild;
+          var container = popDom.childNodes[0].childNodes[2]
+          container.firstChild.setAttribute("visibility", "hidden");
+          container.firstChild.firstChild.setAttribute("visibility", "hidden");
+          //var actionList = popDom.childNodes[0].childNodes[2].firstChild.firstChild;
           //actionList.remove(actionList.firstChild);
           if (!($("#confirmButton").length)) {
             var confirmButton = document.createElement("a");
@@ -328,9 +333,13 @@
             // console.log(titlePane.childNodes)
             confirmButton.innerHTML = "Confirm";
             confirmButton.setAttribute("href", "#")
-            actionList.appendChild(confirmButton);
-            titlePane.removeChild(titlePane.childNodes[2]);
-            titlePane.removeChild(titlePane.childNodes[2]);
+            titlePane.appendChild(confirmButton);
+            titlePane.removeChild(titlePane.childNodes[0]);
+            titlePane.removeChild(titlePane.childNodes[0]);
+            titlePane.removeChild(titlePane.childNodes[0]);
+            titlePane.removeChild(titlePane.childNodes[0]);
+            titlePane.removeChild(titlePane.childNodes[0]);
+
           }
         }
       });
