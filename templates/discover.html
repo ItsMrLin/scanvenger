@@ -106,6 +106,8 @@
           infoWindow: popup,
           fadeOnZoom: true
         });
+        popDom = map.infoWindow.domNode;
+
         //hide the popup if its outside the map's extent
         map.on("mouse-drag", function(evt) {
           if (map.infoWindow.isShowing) {
@@ -301,6 +303,7 @@
       }
       //associate the features with the popup on click
       map.on("click", function (event) {
+        map.infoWindow.hide();
         var query = new Query();
         query.geometry = pointToExtent(map, event.mapPoint, 30);
         var deferred = featureLayer.selectFeatures(query,
@@ -310,9 +313,24 @@
         }
         map.infoWindow.setFeatures([deferred]);
         map.infoWindow.show(event.mapPoint);
+        titlePane = popDom.childNodes[0].childNodes[0].firstChild;
+        titlePane.childNodes[1].innerHTML = "Detailed Info";
         if (deferred.results[0][0].length != 0){
           $('.contentPane').append('<div>' + 'Dollar/Hour: ' + Math.round(attrs['Dollar/Hour'] * 1000) / 1000 + '</div>');
           $('.contentPane').append('<div>' + 'Estimated Travel Time: ' + Math.round(attrs['Estimated Travel Time']) + " min" + '</div>');
+          console.log(popDom)
+          var actionList = popDom.childNodes[0].childNodes[2].firstChild.firstChild;
+          //actionList.remove(actionList.firstChild);
+          if (!($("#confirmButton").length)) {
+            var confirmButton = document.createElement("a");
+            confirmButton.setAttribute("id", "confirmButton");
+            // console.log(titlePane.childNodes)
+            confirmButton.innerHTML = "Confirm";
+            confirmButton.setAttribute("href", "#")
+            actionList.appendChild(confirmButton);
+            titlePane.removeChild(titlePane.childNodes[2]);
+            titlePane.removeChild(titlePane.childNodes[2]);
+          }
         }
       });
       map.on("zoom-end", function (event) {
