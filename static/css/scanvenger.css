@@ -1,0 +1,27 @@
+.navbar {
+	border-radius: 0px;
+	height: 90px;
+	position: relative;
+}
+
+.navbar-default {
+	background-color: #F26A59;
+	border-width: 0px;
+}
+
+.navbar-brand {
+	padding-top: 0;
+	padding-left: 0;
+}
+
+.navbar-brand-logo {
+	width: 90px;
+}
+
+.navbar-logo {
+	height: 48px;
+	margin-top: 21px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
