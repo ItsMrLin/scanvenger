@@ -57,10 +57,14 @@ def picker_login():
 	page = {
 		'title':'Picker Log In',
 		'nav_title': 'Log In',
-		'prev_page': '/picker-home'
+		'prev_page': '/picker-home',
 	}
 	if request.method == 'POST':
-		return render_template('picker-login.html', page=page, is_post = True)
+		data = {
+			'username': request.form['username'],
+			'password': request.form['password'],
+		}
+		return render_template('picker-login.html', page=page, is_post = True, data = data)
 	else:
 		return render_template('picker-login.html', page=page, is_post = False)
 

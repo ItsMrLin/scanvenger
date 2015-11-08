@@ -9,8 +9,8 @@
 		<script type="text/javascript">
 		var ref = new Firebase("https://scanvenger.firebaseio.com");
 		ref.authWithPassword({
-			email    : "<?php echo $_POST['username']; ?>",
-			password : "<?php echo $_POST['password']; ?>"
+			email    : "{{data.username}}",
+			password : "{{data.password}}"
 		}, function(error, authData) {
 			if (error) {
 				console.log("Login Failed!", error);
