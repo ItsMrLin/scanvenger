@@ -31,6 +31,33 @@ def discover():
 def saving():
     return render_template('saving.html')
 
+@app.route('/center-home')
+def center_home():
+    return render_template('center-home.html')
+
+@app.route('/nessie-demo')
+def nessie_demo():
+    return render_template('nessie-demo.html')
+
+@app.route('/picker-home')
+def picker_home():
+    return render_template('picker-home.html')
+
+@app.route('/picker-login', methods=['GET', 'POST'])
+def picker_login():
+	if request.method == 'POST':
+		return render_template('picker-login.html', is_post = True)
+	else:
+		return render_template('picker-login.html', is_post = False)
+
+@app.route('/picker-signup', methods=['GET', 'POST'])
+def picker_signup():
+	if request.method == 'POST':
+		return render_template('picker-signup.html', is_post = True)
+	else:
+		return render_template('picker-signup.html', is_post = False)
+
+
 # @app.route('/api/get_score')
 # def get_score():
 # 	latitude = request.args.get('latitude')
