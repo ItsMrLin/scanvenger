@@ -208,10 +208,29 @@
         });
         requestHandle.then(requestSucceeded, requestFailed);
         */
-        var response = [];
-        $.get('api/get_score?latitude=100&longitude=101', function (data) {
-          requestSucceeded(jQuery.parseJSON(data));
-        });
+
+        {% if data.score_json is defined %}
+          var response = [];
+          $.get('api/get_score?latitude={{data.latitude}}&longitude={{data.longitude}}', function (data) {
+            requestSucceeded(jQuery.parseJSON(data));
+          });
+        {% else %}
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position){
+              latVal = position.coords.latitude;
+              longVal = position.coords.longitude; 
+              url = 'api/get_score?latitude=' + latVal + '&longitude=' + longVal;
+              console.log(url);
+              $.get('api/get_score?latitude=' + latVal + '&longitude=' + longVal, function (data) {
+                requestSucceeded(jQuery.parseJSON(data));
+              });
+            });
+          } else {
+              $.get('api/get_score?latitude=33.77&longitude=-84.39', function (data) {
+                requestSucceeded(jQuery.parseJSON(data));
+              });
+          }
+        {% endif %}
       }
 
       //function requestSucceeded(response, io) {

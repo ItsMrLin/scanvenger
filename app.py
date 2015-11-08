@@ -10,7 +10,21 @@ def index():
 
 @app.route('/discover')
 def discover():
-    return render_template('discover.html')
+	latitude = request.args.get('latitude')
+	longitude = request.args.get('longitude')
+
+	data = {}
+	if (latitude is not None and longitude is not None):
+		latitude = float(latitude)
+		longitude = float(longitude)
+		data = {
+			'latitude': latitude,
+			'longitude': longitude
+		}
+		score_json = model.get_score(latitude, longitude)
+		data['score_json'] = score_json
+
+	return render_template('discover.html', data=data)
 
 
 @app.route('/saving')
