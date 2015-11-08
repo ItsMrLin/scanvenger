@@ -7,7 +7,7 @@
 
   {% if is_post %}
     <script type="text/javascript">
-    var ref = new Firebase("https://scanvenger.firebaseio.com");
+    /*var ref = new Firebase("https://scanvenger.firebaseio.com");
     ref.authWithPassword({
       email    : "{{data.username}}",
       password : "{{data.password}}"
@@ -22,12 +22,12 @@
         $('body').append(form);
         form.submit();
       }
-    });
+    });*/
     </script>
   {% else %}
   <div class="jumbotron vertical-center">
       <div class="container login-container">
-        <form action="#" method="post">
+        <form action="center-home" method="post">
       <div class="row login-row">
               Center Name
               <input type="text" class="login-input" name="username" value="">
