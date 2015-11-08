@@ -4,7 +4,7 @@
     <div class="navbar-header">
     	<a class="navbar-brand" href="#">
 			{% if page.prev_page is defined %}
-	        	<img class="navbar-brand-logo navbar-back-button" alt="Brand" src="img/back.png">
+				<a href="{{page.prev_page}}"><img class="navbar-brand-logo navbar-back-button" alt="Brand" src="img/back.png"></a>
 			{% else %}
 	        	<img class="navbar-brand-logo" alt="Brand" src="img/hackducklogo.png">
 	        {% endif %}

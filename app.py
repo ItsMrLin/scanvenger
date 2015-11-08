@@ -15,6 +15,12 @@ def index():
 
 @app.route('/discover')
 def discover():
+	page = {
+		'title':'Discover',
+		'nav_title': 'Discover',
+		'prev_page': '/picker-home'
+	}
+
 	latitude = request.args.get('latitude')
 	longitude = request.args.get('longitude')
 
@@ -29,7 +35,7 @@ def discover():
 		score_json = model.get_score(latitude, longitude)
 		data['score_json'] = score_json
 
-	return render_template('discover.html', data=data)
+	return render_template('discover.html', data=data, page=page)
 
 @app.route('/center-home')
 def center_home():
