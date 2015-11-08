@@ -323,7 +323,7 @@
           $('.contentPane').append('<div class=discoverText>' + Math.round(attrs['Estimated Travel Time']) + " min" +'</div>');
 
         contentPane = $(contentPane);
-        $("<div>Confirm</div>").attr("href", "#").addClass('login-button').appendTo(contentPane);
+        $("<a href='#'><button class='login-button'>Confirm</button></a>").appendTo(contentPane);
         // confirmButton.setAttribute("href", "#");
         // contentPane.appendChild(confirmButton);
         // if (deferred.results[0][0].length != 0){
