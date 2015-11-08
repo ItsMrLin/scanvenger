@@ -1,0 +1,62 @@
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+	<div id="content">
+	</div>
+	<button id="go">Go</button>
+	<script type="text/javascript">
+	$(document).ready(function() {
+
+		$.ajax({
+			method: 'GET',
+			url: 'http://api.reimaginebanking.com/customers?key=dd10dc4f2037e2a8284c21c4a7f37d1b',
+			contentType: 'application/json',
+			success: function(results){
+				var content = '<table>';
+				for(var i = 0; i < results.length; i++) {
+					content += '<tr>';
+					content += '<td>'+results[i]._id+'</td>';
+					content += '<td>'+results[i].first_name+'</td>';
+					content += '<td>'+results[i].last_name+'</td>';
+					content += '</td>';
+				}
+				content += '</table>';
+				$('#content').html(content);
+			},
+			error: function(results) {
+				console.log(JSON.stringify(results));
+			}
+		});
+
+		$('#go').click(function() {
+			console.log('hi');
+			$.ajax({
+				method: 'POST',
+				url: 'http://api.reimaginebanking.com/customers?key=dd10dc4f2037e2a8284c21c4a7f37d1b',
+				dataType: 'json',
+				data: JSON.stringify({
+					"first_name": "jerry",
+					"last_name": "springer",
+					"address": {
+						"street_number": "5887878787",
+						"street_name": "6th St NE",
+						"city": "Atlanta",
+						"state": "FL",
+						"zip": "30312"
+					}
+				}),
+				contentType: 'application/json',
+				success: function(results){
+					console.log(JSON.stringify(results));
+				},
+				error: function(results) {
+					console.log(JSON.stringify(results));
+				}
+			});	
+		});
+	});
+	</script>
+</body>
+</html>

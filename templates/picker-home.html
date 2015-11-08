@@ -1,0 +1,42 @@
+<html>
+<head>
+	<script src="https://cdn.firebase.com/js/client/2.3.1/firebase.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+	Welcome!
+	<div id="content">
+	</div>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		var ref = new Firebase("https://scanvenger.firebaseio.com/users/<?php echo $_POST['id']; ?>/customer_id");
+		ref.once("value", function(data) {
+			var id = data.A.B;
+
+			$.ajax({
+				method: 'GET',
+				url: "http://api.reimaginebanking.com/customers/"+id+"/accounts?key=dd10dc4f2037e2a8284c21c4a7f37d1b",
+				contentType: 'application/json',
+				success: function(results){
+					var content = '<table>';
+					for(var i = 0; i < results.length; i++) {
+						content += '<tr>';
+						content += '<td>'+results[i]._id+'</td>';
+						content += '<td>'+results[i].type+'</td>';
+						content += '<td>'+results[i].nickname+'</td>';
+						content += '<td>$'+results[i].balance+'</td>';
+						content += '</tr>';
+					}
+					content += '</table>';
+					$('#content').html(content);
+				},
+				error: function(results) {
+					console.log(JSON.stringify(results));
+				}
+			});
+		});
+	});
+	</script>
+</body>
+</html>
