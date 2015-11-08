@@ -317,7 +317,7 @@
       });
       map.on("zoom-end", function (event) {
         heatmapRenderer.blurRadius = 10 + map.getZoom();
-        heatmapRenderer.maxPixelIntensity = 300 + 1000*(15 - map.getZoom());
+        heatmapRenderer.maxPixelIntensity = 300 + 100*(15 - map.getZoom());
       });
 
       function requestFailed(error) {

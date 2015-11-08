@@ -4,12 +4,12 @@ import json
 import numpy as np
 from scipy.stats import norm
 from math import radians, cos, sin, asin, sqrt
-
+from factual import Factual
+from factual.utils import circle
 
 census_data_path = 'data/census2010.csv'
 zip_to_population = helper.load_csv_as_dict(census_data_path)
 
-BASE_API_LINK = 'http://api.v3.factual.com/t/places-us?KEY=fJ1pTwv6Pbk8TamZ5T6wBoz1eeZT9dWagezor5sM'
 PLACE_TYPE = [171, 445]
 
 DRINKS_SOLD_PER_STORE_PER_DAY = 650
@@ -35,7 +35,7 @@ def _haversine(lon1, lat1, lon2, lat2):
     km = 6367 * c
     return km
 
-def get_score(latitude, longitude, size_n = 10, influence_range_in_meter = 1000):
+def get_score(latitude, longitude, size_n = 15, influence_range_in_meter = 1000):
 	# places_raw = json.loads(helper.get_static("mock/local.json"))['response']['data']
 	get_neighbor_radius = DEFAULT_RADIUS
 	places_raw = get_neighbors(latitude, longitude, get_neighbor_radius)
@@ -100,9 +100,7 @@ def get_score(latitude, longitude, size_n = 10, influence_range_in_meter = 1000)
 	# return 
 
 def get_neighbors(latitude, longitude, radius=DEFAULT_RADIUS):
-	attached = '&filters={"category_ids":{"$includes_any":' + str(PLACE_TYPE) + '}}&geo={"$circle":{"$center":[' + str(latitude) + ', ' + str(longitude) + '],"$meters":' + str(radius) + '}}'
-	request_link = BASE_API_LINK + attached
-	print request_link
-	content = requests.get(request_link).content
-	data = json.loads(content)['response']['data']
+	factual = Factual('IVLfuMgT7A6YzCX0qcgaN19EfYSoCVg207m7pOIf', 'qVfst8GPhiYUoDueRYo0a8ub5F6yDUW3XIYymHGr')
+	places_table = factual.table('places-us')
+	data = places_table.filters({'category_ids':{'$includes_any':PLACE_TYPE}}).geo(circle(latitude, longitude, radius)).data()
 	return data
