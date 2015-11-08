@@ -1,0 +1,22 @@
+{
+	"data": [
+		{
+			"latitude": 33.77,
+			"longitude": -84.39,
+			"score": 0.65,
+			"dollor_per_hour": 10
+		},
+		{
+			"latitude": 33.771,
+			"longitude": -84.391,
+			"score": 0.20,
+			"dollor_per_hour": 5
+		},
+		{
+			"latitude": 33.772,
+			"longitude": -84.389,
+			"score": 0.15,
+			"dollor_per_hour": 3
+		}
+	]
+}

@@ -18,15 +18,15 @@ def discover():
 def saving():
     return render_template('saving.html')
 
-@app.route('/static/<path:path>')
+@app.route('/api/get_score')
+def get_score():
+	latitude = request.args.get('latitude')
+	longitude = request.args.get('longitude')
+	return get_static("mock/local_score.json")
+
 def get_static(path):
 	with open(os.path.join(APP_STATIC, path)) as f:
 		return f.read()
-
-@app.route('/api/get_score')
-def get_score(path):
-	return "{}"
-
 
 if __name__ == '__main__':
     app.run(debug=True)
