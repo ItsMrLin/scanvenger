@@ -106,16 +106,20 @@ body {
 .titlePane .spinner,
 .titlePane .prev,
 .titlePane .next,
-.titlePane .maximize,
-.esriPopup .pointer.top {
+.titlePane .maximize{
 	display: none!important;
-
 }
-
+.pointer, 
+.outerPointer.right,
+.outerPointer.left,
+.outerPointer {
+	background-color: rgba(0,0,0,0.4)!important;
+	display: none;
+}
 .sizer.content{
 	width: 320px;
 	height: 190px;
-	background-color: gray;
+	background-color: rgba(0,0,0,0);
 }
 
 .contentPane {
@@ -123,12 +127,13 @@ body {
     vertical-align: middle;
     height: 190px;
     background-color: rgba(0,0,0,0)!important;
+    padding: 5px!important;
 }
 
 .discoverText {
-	text-align: middle;
-	height: 30px;
-	font-size: 24px;
+	text-align: center;
+	height: 24px;
+	font-size: 20px!important;
 	color: white; 
 	margin: 2px;
 }
@@ -186,4 +191,8 @@ body {
 	color: #31526E;
 	margin-bottom: 20px;
 	text-align: center;
+}
+
+.login-button.discover {
+	margin-top: 17px!important;
 }
