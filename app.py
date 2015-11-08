@@ -45,6 +45,15 @@ def center_home():
 def nessie_demo():
     return render_template('nessie-demo.html')
 
+@app.route('/picker-select')
+def picker_select():
+	page = {
+		'title':'sCANvenger',
+		# 'nav_title': 'Log In',
+		'prev_page': '/',
+	}
+	return render_template('picker-select.html', page = page)
+
 @app.route('/picker-home', methods=['GET', 'POST'])
 def picker_home():
 	data = {}

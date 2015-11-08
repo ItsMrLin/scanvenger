@@ -196,3 +196,25 @@ body {
 .login-button.discover {
 	margin-top: 17px!important;
 }
+
+.img-box-parent{
+	text-align: center;
+	color: white;
+}
+
+.img-box {
+	height: 260px;
+	width: 260px;
+	background-color: #31526E;
+	color: #F26A59;
+	font-size: 36px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.img-box img{
+	height: 160px;
+	width: 160px;
+	text-align: center;
+	margin-top: 20px;
+}
