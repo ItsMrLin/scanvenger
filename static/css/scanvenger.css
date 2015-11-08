@@ -1,7 +1,56 @@
+/** Page **/
+.jumbotron {
+	background-color: #81B9C3;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.container {
+	background-color: rgba(0, 0, 0, 0);
+	width: 550px;
+	margin-top: -150px;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.button {
+	border-radius: 5px;
+	border-width: 0px;
+}
+
+/** Landing page **/
+.landing-icon {
+	width: 104px;
+	margin-right: 46px;
+}
+
+.landing-button {
+	position: absolute;
+	background-color: #31526E;
+	width: 350px;
+	height: 80px;
+	font-size: 36px;
+	color: #F26A59;
+	margin-top: 12px;
+}
+
+.landing-row {
+	margin-bottom: 22px;
+}
+
+/** Nav bar **/
 .navbar {
 	border-radius: 0px;
 	height: 90px;
 	position: relative;
+	margin-bottom: 0px;
 }
 
 .navbar-default {
