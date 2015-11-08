@@ -22,7 +22,6 @@
       #map{ 
         padding:0;
       }
-  }
 
 /*      .sizer {
         position: absolute;
@@ -309,39 +308,40 @@
         query.geometry = pointToExtent(map, event.mapPoint, 30);
         var deferred = featureLayer.selectFeatures(query,
           FeatureLayer.SELECTION_NEW);
+        attrs = {'Dollar/Hour': "N/A", "Estimated Travel Time": "N/A"}
         if (deferred.results[0][0].length != 0){
            attrs = deferred.results[0][0][0]["attributes"];
         }
         map.infoWindow.setFeatures([deferred]);
         map.infoWindow.show(event.mapPoint);
         titlePane = popDom.childNodes[0].childNodes[0].firstChild;
+        contentPane = popDom.childNodes[0].childNodes[1].firstChild;
         titlePane.childNodes[1].innerHTML = "";
-        if (deferred.results[0][0].length != 0){
           $('.contentPane').append('<div class=discoverText>' + 'Dollar/Hour: ' +  '</div>');
           $('.contentPane').append('<div class=discoverText>' + Math.round(attrs['Dollar/Hour'] * 1000) / 1000 + '</div>');
           $('.contentPane').append('<div class=discoverText>' + 'Estimated Travel Time: ' + '</div>');
           $('.contentPane').append('<div class=discoverText>' + Math.round(attrs['Estimated Travel Time']) + " min" +'</div>');
-          console.log(popDom)
-          var container = popDom.childNodes[0].childNodes[2]
-          container.firstChild.setAttribute("visibility", "hidden");
-          container.firstChild.firstChild.setAttribute("visibility", "hidden");
-          //var actionList = popDom.childNodes[0].childNodes[2].firstChild.firstChild;
-          //actionList.remove(actionList.firstChild);
-          if (!($("#confirmButton").length)) {
-            var confirmButton = document.createElement("a");
-            confirmButton.setAttribute("id", "confirmButton");
-            // console.log(titlePane.childNodes)
-            confirmButton.innerHTML = "Confirm";
-            confirmButton.setAttribute("href", "#")
-            titlePane.appendChild(confirmButton);
-            titlePane.removeChild(titlePane.childNodes[0]);
-            titlePane.removeChild(titlePane.childNodes[0]);
-            titlePane.removeChild(titlePane.childNodes[0]);
-            titlePane.removeChild(titlePane.childNodes[0]);
-            titlePane.removeChild(titlePane.childNodes[0]);
 
-          }
-        }
+        contentPane = $(contentPane);
+        $("<div>Confirm</div>").attr("href", "#").addClass('login-button').appendTo(contentPane);
+        // confirmButton.setAttribute("href", "#");
+        // contentPane.appendChild(confirmButton);
+        // if (deferred.results[0][0].length != 0){
+        //   console.log(popDom)
+        //   var container = popDom.childNodes[0].childNodes[2]
+        //   container.firstChild.setAttribute("visibility", "hidden");
+        //   container.firstChild.firstChild.setAttribute("visibility", "hidden");
+        //   //var actionList = popDom.childNodes[0].childNodes[2].firstChild.firstChild;
+        //   //actionList.remove(actionList.firstChild);
+        //   if (!($("#confirmButton").length)) {
+        //     titlePane.removeChild(titlePane.childNodes[0]);
+        //     titlePane.removeChild(titlePane.childNodes[0]);
+        //     titlePane.removeChild(titlePane.childNodes[0]);
+        //     titlePane.removeChild(titlePane.childNodes[0]);
+        //     titlePane.removeChild(titlePane.childNodes[0]);
+
+        //   }
+        // }
       });
       map.on("zoom-end", function (event) {
         heatmapRenderer.blurRadius = 10 + map.getZoom();

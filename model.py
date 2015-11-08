@@ -18,6 +18,12 @@ DAILY_ACTIVE_HOUR = 8.0
 
 DEFAULT_RADIUS = 1000
 
+test = 0
+
+def inc():
+	test += 1
+	print test
+
 def _haversine(lon1, lat1, lon2, lat2):
     """
     Calculate the great circle distance between two points 

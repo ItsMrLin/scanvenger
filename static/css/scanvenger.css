@@ -3,6 +3,11 @@
 	font-family: 'Nunito', sans-serif;
 }
 
+body {
+	height: 100vh;
+	overflow: hidden;
+}
+
 .jumbotron {
 	background-color: #81B9C3;
 	margin-left: auto;
@@ -76,6 +81,7 @@
 .navbar-logo {
 	color: white;
 	font-size: 48px;
+	text-align: center;
 	height: 48px;
 	width: 250px;
 	margin-top: 21px;
@@ -89,11 +95,11 @@
 	width: 320px;
 	height: 230px;
 	border-radius: 3px;
-	background-color: rgba(0,0,0, 0.2);
+	background-color: rgba(0,0,0, 0.4);
 }
 
 .sizer {
-	width: 320px;
+	width: 100% !important;
 	height: 20px;
 	background-color: rgba(0,0,0, 0);
 }
@@ -101,6 +107,16 @@
 	width: 320px;
 	background-color: gray;
 }
+
+.titlePane .spinner,
+.titlePane .prev,
+.titlePane .next,
+.titlePane .maximize,
+.esriPopup .pointer.top {
+	display: none!important;
+
+}
+
 .sizer content{
 	width: 320px;
 	height: 190px;
@@ -111,7 +127,7 @@
 	width: 320px;
     vertical-align: middle;
     height: 190px;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0)!important;
 }
 
 .discoverText {
@@ -119,11 +135,13 @@
 	height: 30px;
 	font-size: 24px;
 	color: white; 
+	margin: 2px;
 }
 
-.actionPane {
+.esriPopup .actionsPane {
 	visibility: hidden;
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0)!important;
+    display: none!important;
 }
 
 .actionList {
