@@ -35,7 +35,7 @@ def _haversine(lon1, lat1, lon2, lat2):
     km = 6367 * c
     return km
 
-def get_score(latitude, longitude, size_n = 10, influence_range = 1000):
+def get_score(latitude, longitude, size_n = 10, influence_range_in_meter = 1000):
 	# places_raw = json.loads(helper.get_static("mock/local.json"))['response']['data']
 	get_neighbor_radius = DEFAULT_RADIUS
 	places_raw = get_neighbors(latitude, longitude, get_neighbor_radius)
@@ -71,15 +71,16 @@ def get_score(latitude, longitude, size_n = 10, influence_range = 1000):
 	longSlices = np.linspace(minLong, maxLong, size_n)
 
 	hot_spot_grid = np.zeros((size_n, size_n))
-	influence_normal_rv = norm(loc = 0, scale = influence_range)
+	influence_normal_rv = norm(loc = 0, scale = influence_range_in_meter)
 
 	# place 
 	for i_lat in range(size_n):
 		for j_long in range(size_n):
 			for place in places:
-				dist = _haversine(place['longitude'], place['latitude'], longSlices[j_long], latSlices[i_lat])
-				hot_spot_grid[i_lat][j_long] += influence_normal_rv.pdf(dist) * zip_to_population[str(place['zipcode'])]
-
+				distance_in_km = _haversine(place['longitude'], place['latitude'], longSlices[j_long], latSlices[i_lat])
+				distribution_value = influence_normal_rv.pdf(distance_in_km * 1000)
+				hot_spot_grid[i_lat][j_long] += distribution_value * zip_to_population[str(place['zipcode'])]
+				# print dist, distribution_value, hot_spot_grid[i_lat][j_long]
 
 	scores = {}
 	scores['data'] = []

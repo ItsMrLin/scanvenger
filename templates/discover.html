@@ -216,7 +216,7 @@
           });
         {% else %}
           if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position){
+              navigator.geolocation.getCurrentPosition(function(position){
               latVal = position.coords.latitude;
               longVal = position.coords.longitude; 
               url = 'api/get_score?latitude=' + latVal + '&longitude=' + longVal;
