@@ -49,6 +49,7 @@ def get_score(latitude, longitude, size_n = 10, influence_range = 1000):
 		new_place['latitude'] = int(place_raw['latitude'])
 		new_place['longitude'] = int(place_raw['longitude'])
 		new_place['zipcode'] = int(place_raw['postcode'])
+		print new_place
 		places.append(new_place)
 
 		minLat = min(minLat, new_place['latitude'])
@@ -66,7 +67,7 @@ def get_score(latitude, longitude, size_n = 10, influence_range = 1000):
 
 	print latSlices
 	print longSlices
-	
+
 	hot_spot_grid = np.zeros((size_n, size_n))
 	influence_normal_rv = norm(loc = 0, scale = influence_range)
 
